@@ -5,7 +5,7 @@ public class Duelist
     private String name;
     private double accuracy;
     private boolean alive;
-    int aaronWin, bobWin, charlieWin;  
+    private int aaronWin, bobWin, charlieWin;  
 
     public Duelist(String newName, double newAccuracy) 
     {
@@ -27,9 +27,19 @@ public class Duelist
         return aaronWin;
     }
     
+    public void aaronWon()
+    {
+        aaronWin++;
+    }
+
     public int bob()
     {
         return bobWin;
+    }
+
+    public void bobWon()
+    {
+        bobWin++;
     }
 
     public int charlie()
@@ -37,24 +47,10 @@ public class Duelist
         return charlieWin;
     }
 
-    /*
-    public static void fairGame()
+    public void charlieWon()
     {
-        //aaron > bob > charlie
-        aaron.shootAtTarget(charlie);
-        System.out.println("Aaron shoots are Charlie.  Charlie is alive? " + charlie.alive);
-            if (charlie.alive == true)
-            {
-                charlie.shootAtTarget(bob);
-                System.out.println("Charlie then shoots at Bob.  Bob is alive? " + bob.alive);
-            }
-            else
-            {
-                bob.shootAtTarget(aaron);
-                System.out.println("Bob then shoots at Aaron. Aaron is alive? " + aaron.alive);
-            }
+        charlieWin++;
     }
-    */
 
     public static void main(String[] args)
     {
@@ -62,46 +58,38 @@ public class Duelist
         Duelist bob = new Duelist("Bob", 0.50);
         Duelist charlie = new Duelist("Charlie", 1);
         
-        System.out.println(bob.shootAtTarget(charlie));
-
-        aaron.shootAtTarget(charlie);
-        System.out.println("Aaron shoots are Charlie.  Charlie is alive? " + charlie.alive);
-        if (charlie.alive == true)
+        for (int x = 0; x <= 10000; x++)
         {
-            charlie.shootAtTarget(bob);
-            System.out.println("Charlie then shoots at Bob.  Bob is alive? " + bob.alive);
-            
-            System.out.println("Aaron shoots at Charlie again...");
             aaron.shootAtTarget(charlie);
-            System.out.println("Is Charlie still alive? " + charlie.alive);
-                if (charlie.alive == true)
-                {
-                    System.out.println("Charlie shoots at Aaron in the head.");
-                    charlieWin++;
-                }
-                else 
-                {
-                    System.out.println("Aaron is the Puzzle champ!");
-                    aaronWin++;
-                }
+            if (charlie.alive == true)
+            {
+                charlie.shootAtTarget(bob);
+                aaron.shootAtTarget(charlie);
+                    if (charlie.alive == true)
+                    {
+                        charlie.charlieWon();
+                    }
+                    else 
+                    {
+                        aaron.aaronWon();
+                    }
+            }
+            else
+            {
+                bob.shootAtTarget(aaron);
+                    if (aaron.alive == true)
+                    {
+                        bob.bobWon();
+                    }
+                    else
+                    {
+                        aaron.aaronWon();
+                    }
+            }
         }
-        else
-        {
-            bob.shootAtTarget(aaron);
-            System.out.println("Bob then shoots at Aaron. Aaron is alive? " + aaron.alive);
-                if (aaron.alive == true)
-                {
-                    System.out.println("A point for Bob");
-                    bobWin++;
-                }
-                else
-                {
-                    System.out.println("Aaron got lucky this time");
-                    aaronWin++;
-                }
-        }
-        System.out.println(Duelist.aaron());
-        System.out.println(Duelist.bob());
-        System.out.println(Duelist.charlie());
+            System.out.println("IN THE END");
+            System.out.println(aaron.aaron() + " / 10000 AARON");
+            System.out.println(bob.bob() + " / 10000 BOB");
+            System.out.println(charlie.charlie() + " / 10000 CHARLIE");
     }
 }
