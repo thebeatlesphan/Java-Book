@@ -7,6 +7,8 @@ public class Competition
     //Contructors
     public Competition()
     {
+        nameOfCompetition = null;
+        
     }
 
     public Competition(String name, String winteam, String runteam, int newYear)
@@ -33,42 +35,58 @@ public class Competition
         year = newYear;
     }
 
+    //Copy Constructor
+    public Competition(Competition comp)
+    {
+        nameOfCompetition = comp.nameOfCompetition;
+        year = comp.year;
+        winningTeam = comp.winningTeam;
+        runnerUp = comp.runnerUp;
+    }
+
     //mutators
-    public Competition setNameComp(String newName)
+    public void setNameComp(String newName)
     {
-        return new Competition(newName);
+        nameOfCompetition = newName; 
     }
 
-    public Competition setYear(int newYear)
+    public void setYear(int newYear)
     {
-        return new Competition(newYear);
+        year = newYear;
     }
 
-    public Competition setTeams(String win,String run)
+    public void setTeams(String win,String run)
     {
-        return new Competition(win, run);
+        winningTeam = win;
+        runnerUp = run;
     }
 
-    //accesors
-    public Competition getName()
+    //accessors
+    public String getName()
     {
-        return new Competition(nameOfCompetition);
+        return nameOfCompetition;
     }
     
-    public Competition getYear()
+    public int getYear()
     {
-        return new Competition(year);
+        return year; 
     }
 
-    public Competition getTeams()
+    public String getWinTeam()
     {
-        return new Competition(winningTeam, runnerUp);
+        return winningTeam; 
+    }
+
+    public String getRun()
+    {
+        return runnerUp;
     }
 
     public String toString()
     {
-        return (nameOfCompetition + "\n" + year + "\n" +
-                "Winning Team\n" + winningTeam + "\n" +
-                "Runner Up\n" + runnerUp);
+        return ("Name: " + nameOfCompetition + "\n" +
+                "Year: " + year + "\n" +
+                "Winning Team: " + winningTeam + "\n" +
+                "Runner Up: " + runnerUp);
     }
 }

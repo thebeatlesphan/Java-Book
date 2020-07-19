@@ -2,35 +2,32 @@ public class TeamCompTest
 {
     public static void main(String[] args)
     {
-        Team andy = new Team("Andy's Team", "andy", "mo", "mike", "nan");
-        Team mish = new Team("Mish's Team", "mish", "emman", "adam", "sohaib");
-
+        Team andy = new Team("HOME", "andy", "brian", "ryan", "dingo");
+        Team calvin = new Team("AWAY", "calvin", "car", "optimus prime", "player4");
         System.out.println(andy);
-        System.out.println(mish);
+        System.out.println(calvin);
         System.out.println();
 
-        Competition support = new Competition("Support", "andy", "mish", 2012);
-        Competition imp = new Competition("Imp", "mish", "andy", 2011);
-
-        System.out.println(support);
-        System.out.println(imp);
+        Competition comp1 = new Competition("valet", "HOME-string", "AWAY-string", 1971);
+        Competition comp2 = new Competition("IT", "Away-string", "Home-string", 2020);
+        System.out.println(comp1);
+        System.out.println(comp2);
         System.out.println();
 
-        andy.setComp(support, imp);
-        mish.setComp(support, imp);
-
-
-        System.out.println(andy.display());
-        System.out.println();
-
-        andy.toString();
-
-        System.out.println(support.getTeams());
-        
-        Team testTeam = new Team("bob");
-        System.out.println(testTeam);
-        System.out.println();
-
+        andy.setComp(comp1, comp2);
+        calvin.setComp(comp2, comp1);
         System.out.println(andy);
+        System.out.println(calvin);
+
+
+        System.out.println("-----------------------------------");
+        andy.getComp1().setYear(1010);
+        System.out.println(andy);
+        System.out.println("-----------------------------------");
+ 
+        andy.getComp2().setYear(0000);
+        System.out.println(andy);
+        System.out.println("------------------------------------");
+        System.out.println(calvin);
     }
 }

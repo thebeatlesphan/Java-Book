@@ -39,7 +39,6 @@ public class Team
         this.name4 = name4;
     }
 
-
     public Team(String name)
     {
        teamName = name;
@@ -47,51 +46,89 @@ public class Team
 
     public Team(Competition comp1, Competition comp2)
     {
-        competition1 = comp1;
-        competition2 = comp2;
+        competition1 = new Competition(comp1);
+        competition2 = new Competition(comp2);
+    }
+
+    //Copy Constructor
+    public Team(Team thi)
+    {
+        teamName = thi.teamName;
+        name1 = thi.name1;
+        name2 = thi.name2;
+        name3 = thi.name3;
+        name4 = thi.name4;
     }
 
     //mutators
-    public Team setTeamName(String name)
+    public void setTeamName(String name)
     {
-        return new Team(name);
+        teamName = name;
     }
 
-    public Team setMemberNames(String name1, String name2,
+    public void setMemberNames(String name1, String name2,
         String name3, String name4)
     {
-       return new Team(name1, name2, name3, name4);
+        this.name1 = name1;
+        this.name2 = name2;
+        this.name3 = name3;
+        this.name4 = name4;
     }
 
-    public Team setComp(Competition comp1, Competition comp2)
+    public void setComp(Competition comp1, Competition comp2)
     {
-        return new Team(comp1, comp2);
+        competition1 = new Competition(comp1);
+        competition2 = new Competition(comp2);
     }
 
-    //accesors
-    public Team getTeamName()
+    //accessors
+    public String getTeamName()
     {
-        return new Team(teamName);
+        return teamName;
     }
 
-    public Team getMembers()
+    public String getMember1()
     {
-        return new Team(name1, name2, name3, name4);
+        return name1;
     }
 
-    public Team getComp()
+    public String getMember2()
     {
-        return new Team(competition1, competition2);
+        return name2;
+    }
+
+    public String getMember3()
+    {
+        return name3;
+    }
+
+    public String getMember4()
+    {
+        return name4;
+    }
+
+    public Competition getComp1()
+    {
+     //   return new Competition(competition1); 
+        return competition1;
+    }
+
+    public Competition getComp2()
+    {
+        return competition2; 
     }
 
     public String display()
     {
-        return "Hello" + this.getTeamName();
+        return "Hello " + this.getTeamName();
     }
     
     public String toString()
     {
-        return (teamName + "\n" + name1 + "\n" +  competition1);
+        return ("Teamname: " + teamName + "\n" + 
+                "Leader: " + name1 + "\n" +  
+                "Comp1: " + competition1 + 
+                "Comp2: " + competition2);
     }
 
 }
