@@ -9,6 +9,13 @@ public class Person
 	private Date born;
 	private Date died; //null indicates still alive.
 	
+    /**
+     Constructor (String, Date, Date);
+    
+     @param 1st Date = birth, 2nd Date = death
+     @author Andy
+     @version 1.1.1.1
+    */
 	public Person(String initialName, Date birthDate, Date deathDate)
 	{
 		if (consistent(birthDate, deathDate))

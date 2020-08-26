@@ -3,6 +3,12 @@ public class RationalNumbers
     private int numerator, denominator;
 
     //constructors
+    /**
+    Displays the numerator & denominator
+    @param no params
+    @author Andy
+    @version 1.1.1.1
+    */
     public RationalNumbers()
     {
         numerator = 0;
@@ -53,18 +59,26 @@ public class RationalNumbers
     //Greatest Common Denominator
     public int gcd()
     {
-        RationalNumbers cat = new RationalNumbers(
+        RationalNumbers cat = new RationalNumbers(this.numerator, this.denominator);
 
-        if (denominator == 0)
-            return numerator;
-        else
-        {
-        }
+        while (cat.denominator != 0)
+            cat = new RationalNumbers(cat.denominator, cat.numerator%cat.denominator);
+        return cat.numerator;
     }
 
     //methods
     public void add(RationalNumbers f2)
     {
+        this.numerator = (this.numerator * f2.denominator) +
+                        (f2.numerator * this.denominator);
+        this.denominator = this.denominator * f2.denominator; 
+    }
+
+    public void subtract(RationalNumbers f2)
+    {
+        this.numerator = (this.numerator * f2.denominator) -
+                        (f2.numerator * this.denominator);
+        this.denominator = this.denominator * f2.denominator; 
     }
 
     public void multiply(RationalNumbers f2)
@@ -103,5 +117,12 @@ public class RationalNumbers
     {
         return numerator + "/" + denominator;
     }
-}
 
+    public static void main(String[] args)
+    {
+        RationalNumbers test = new RationalNumbers(38,30);
+
+        System.out.println(test.gcd());
+    }
+
+}
