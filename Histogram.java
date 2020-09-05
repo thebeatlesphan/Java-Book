@@ -18,28 +18,35 @@ public class Histogram
     private int[] [] range; 
     private int maxBins; //chart.length
     private String path;
-    private File dataFile = new File("\"" + path + "\"");
+    private File dataFile; 
 
     public Histogram(String data)
     {
         path = data;
+        dataFile = new File(path);
     }
 
     Histogram(String data, int bins)
     {
         path = data;
         maxBins = bins;
+        dataFile = new File(path);
     }
 
     /**
      Range = 0 - 100
-     Divisor will dictact number of bins
+     Divisor will dictate number of bins
      each bin will be evenly divided
      */
-    public void createBins(double divisor)
+    public void calcMax()
     {
-        double total = 100; // 0 - 100 inclusive
-        maxBins = (int)Math.ceil(total / divisor);
+        int total = 100; // 0 - 100 inclusive
+        range[a] = total;
+        int maxRange;
+        for (int x = 1; x < range.length; x++)
+        {
+            range[x] = total - range; 
+        }
     }
 
     public void toDisplay()
@@ -53,11 +60,22 @@ public class Histogram
         return dataFile.exists();
     }
 
+    public int getLength()
+    {
+        return range.length;
+    }
+
     public static void main(String[] args)
     {
         Histogram test = new Histogram("C:\\Users\\Dingo\\Documents\\Java-Book\\grades.csv",5);
         test.toDisplay();
         System.out.println(test.getData());
         System.out.println("escape tool: \"");
+        System.out.println(test.getLength());
+        
+        //File testData = new File(grades.csv);
+        //System.out.println(testData.exists());
+
+
     }
 }
