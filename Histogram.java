@@ -15,7 +15,7 @@ import java.io.File;
  */
 public class Histogram
 {
-    private int[] [] range; 
+    private int[][] range; 
     private int maxBins; //chart.length
     private String path;
     private File dataFile; 
@@ -31,22 +31,22 @@ public class Histogram
         path = data;
         maxBins = bins;
         dataFile = new File(path);
+        range = new int[maxBins] [];
     }
 
-    /**
-     Range = 0 - 100
-     Divisor will dictate number of bins
-     each bin will be evenly divided
-     */
     public void calcMax()
     {
-        int total = 100; // 0 - 100 inclusive
-        range[a] = total;
-        int maxRange;
-        for (int x = 1; x < range.length; x++)
+        int total = 100;
+        range = new int[2][];
+        for(int x = 1;x <= range.length;x++)
         {
-            range[x] = total - range; 
+            range[x] = scale();
         }
+    }
+
+    public int scale()
+    {
+        return (int) Math.ceil(100 / maxBins);
     }
 
     public void toDisplay()
