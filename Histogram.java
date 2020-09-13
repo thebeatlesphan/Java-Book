@@ -16,9 +16,13 @@ import java.io.File;
 public class Histogram
 {
     private int[][] range; 
-    private int maxBins; //chart.length
+    private static int maxBins = 0; //chart.length
     private String path;
     private File dataFile; 
+
+    public Histogram()
+    {
+    }
 
     public Histogram(String data)
     {
@@ -31,28 +35,65 @@ public class Histogram
         path = data;
         maxBins = bins;
         dataFile = new File(path);
-        range = new int[maxBins] [];
+        range = new int[maxBins][];
     }
 
+    public Histogram(Histogram original)
+    {
+        range = original.range;
+        maxBins = original.maxBins;
+        path = original.path;
+        dataFile = original.dataFile;
+    }
+
+    /**
+     Sets maxBins.
+     */
+    public static void setMaxBins(int bins)
+    {
+        maxBins = bins;
+    }
+
+    /**
+     Initializes max values in the first array.
+     */
     public void calcMax()
     {
         int total = 100;
-        range = new int[2][];
-        for(int x = 1;x <= range.length;x++)
+        range = new int[maxBins][2];
+        range[0][0] = 100;
+        for(int x=1; x < range.length; x++)
         {
-            range[x] = scale();
+            range[x][0] = total - scaleMax();
+            total = total - scaleMax(); 
         }
     }
 
-    public int scale()
+    /**
+     Initializes min values in the second array. 
+     */
+    public void calcMin()
     {
-        return (int) Math.ceil(100 / maxBins);
+        int total = 100;
+        for(int x=0; x < range.length; x++)
+        {
+            range[x][1] = (total - scaleMax() + 1);
+            range[maxBins-1][1] = 0;
+            total = total - scaleMax();
+        }
     }
 
-    public void toDisplay()
+    /**
+     returns 100 / maxBins. Range of the bins. 
+     */
+    public int scaleMax()
     {
-        for (int bin = 1; bin <= maxBins; bin++)
-            System.out.println("heheh");
+        return (int) Math.ceil(100.0 / maxBins);
+    }
+    
+    public int scaleMin()
+    {
+        return (int) Math.floor(100.0 / maxBins);
     }
 
     public Boolean getData()
@@ -65,17 +106,40 @@ public class Histogram
         return range.length;
     }
 
+    public void toDisplay()
+    {
+        System.out.println();
+        for(int x = 0; x < range.length; x++)
+        {
+            System.out.printf("%3d - %2d | %n",
+                    range[x][0], range[x][1]);
+        }
+    }
+
+    /**
+     Reads the file and generates []
+     */
+    public void generate()
+    {
+        System.out.println(dataFile.exists());
+    }
+
+
     public static void main(String[] args)
     {
-        Histogram test = new Histogram("C:\\Users\\Dingo\\Documents\\Java-Book\\grades.csv",5);
-        test.toDisplay();
-        System.out.println(test.getData());
-        System.out.println("escape tool: \"");
-        System.out.println(test.getLength());
+        Scanner keyboard = new Scanner(System.in);
+        Histogram test = new Histogram();
+
+        if (maxBins == 0)
+        {
+            System.out.println("How many bins would you like?");
+            test.setMaxBins(keyboard.nextInt());
+        }
         
-        //File testData = new File(grades.csv);
-        //System.out.println(testData.exists());
-
-
+        test.calcMax();
+        test.calcMin();
+        test.toDisplay();
+        //this.getData();
     }
 }
+
