@@ -16,7 +16,7 @@ import java.io.File;
 public class Histogram
 {
     private int[][] range; 
-    private static int maxBins = 0; //chart.length
+    private int maxBins = 0; //chart.length
     private String path;
     private File dataFile; 
 
@@ -49,7 +49,7 @@ public class Histogram
     /**
      Sets maxBins.
      */
-    public static void setMaxBins(int bins)
+    public void setMaxBins(int bins)
     {
         maxBins = bins;
     }
@@ -129,17 +129,22 @@ public class Histogram
     {
         Scanner keyboard = new Scanner(System.in);
         Histogram test = new Histogram();
-
-        if (maxBins == 0)
+        if(args[1] == null)
+            test = new Histogram(args[0]);
+        else if(args[1] != null)
+            test = new Histogram(args[0],(int)args[1]);
+/**
+        if (args[1].equals(0))
         {
             System.out.println("How many bins would you like?");
             test.setMaxBins(keyboard.nextInt());
         }
-        
+  */      
         test.calcMax();
         test.calcMin();
         test.toDisplay();
-        //this.getData();
+
+        System.out.println( test.getData());
     }
 }
 
