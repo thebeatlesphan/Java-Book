@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import java.io.File;
-//import Any Exception;
+import java.io.FileNotFoundException;
 
 /**
     Takes two inputs (String dataFile, int numberOfBinsToCreate)
@@ -16,26 +16,38 @@ import java.io.File;
 public class Histogram
 {
     private int[][] range; 
-    private int maxBins = 0; //chart.length
+    private int maxBins; //chart.length
     private String path;
     private File dataFile; 
 
     public Histogram()
     {
+        range = new int[1][2];
+        maxBins = 1;
     }
 
     public Histogram(String data)
     {
         path = data;
         dataFile = new File(path);
+        range = new int[1][2];
+        maxBins = 1;
     }
 
-    Histogram(String data, int bins)
+    public Histogram(String data, int bins)
     {
         path = data;
-        maxBins = bins;
         dataFile = new File(path);
-        range = new int[maxBins][];
+        range = new int[maxBins][2];
+        if (bins == 0)
+        {
+            System.out.println("Error");
+            System.exit(0);
+        }
+        else 
+        {
+            maxBins = bins;
+        }
     }
 
     public Histogram(Histogram original)
@@ -117,34 +129,60 @@ public class Histogram
     }
 
     /**
+     Reads the file and allocates marks for each bin
+     */
+    public void count()
+    {
+    }
+
+    /**
      Reads the file and generates []
      */
     public void generate()
     {
-        System.out.println(dataFile.exists());
+        Scanner read = null;
+        try
+        {
+            read = new Scanner(dataFile);
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("Error");
+            System.exit(0);
+        }
     }
 
 
     public static void main(String[] args)
     {
         Scanner keyboard = new Scanner(System.in);
-        Histogram test = new Histogram();
-        if(args[1] == null)
-            test = new Histogram(args[0]);
-        else if(args[1] != null)
-            test = new Histogram(args[0],(int)args[1]);
-/**
-        if (args[1].equals(0))
+        Integer convert; // = Integer.parseInt(args[1]);
+        Histogram test; // = new Histogram();
+
+        if(args.length == 1)
         {
             System.out.println("How many bins would you like?");
-            test.setMaxBins(keyboard.nextInt());
+            int input = keyboard.nextInt();
+            test = new Histogram(args[0], input);
+            test.calcMax();
+            test.calcMin();
+            test.toDisplay();
+            test.generate();
+       }
+        else if(args[1] != null)
+        {
+            convert = Integer.parseInt(args[1]);
+            test = new Histogram(args[0], convert);
+            test.calcMax();
+            test.calcMin();
+            test.toDisplay();
+            test.generate();
         }
-  */      
-        test.calcMax();
-        test.calcMin();
-        test.toDisplay();
-
-        System.out.println( test.getData());
+        else
+        {
+            System.out.println("Error");
+            System.exit(0);
+        }
     }
 }
 
