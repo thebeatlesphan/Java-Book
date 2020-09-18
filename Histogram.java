@@ -133,14 +133,7 @@ public class Histogram
      */
     public void count()
     {
-    }
-
-    /**
-     Reads the file and generates []
-     */
-    public void generate()
-    {
-        Scanner read = null;
+         Scanner read = null;
         try
         {
             read = new Scanner(dataFile);
@@ -150,6 +143,19 @@ public class Histogram
             System.out.println("Error");
             System.exit(0);
         }
+        
+        for(int x = 0; x <= range.length; x++)
+        {
+            
+        }
+   }
+
+    /**
+     Generates []
+     */
+    public String generate()
+    {
+       return ("[]");
     }
 
 
