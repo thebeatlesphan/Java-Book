@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 public class Histogram
 {
     private int[][] range; 
+    private int[] count;
     private int maxBins; //chart.length
     private String path;
     private File dataFile; 
@@ -23,6 +24,7 @@ public class Histogram
     public Histogram()
     {
         range = new int[1][2];
+        count = new int[1];
         maxBins = 1;
     }
 
@@ -31,6 +33,7 @@ public class Histogram
         path = data;
         dataFile = new File(path);
         range = new int[1][2];
+        count = new int[1];
         maxBins = 1;
     }
 
@@ -39,8 +42,9 @@ public class Histogram
         path = data;
         dataFile = new File(path);
         range = new int[maxBins][2];
+        count = new int[maxBins];
         if (bins == 0)
-        {
+        { 
             System.out.println("Error");
             System.exit(0);
         }
@@ -73,6 +77,7 @@ public class Histogram
     {
         int total = 100;
         range = new int[maxBins][2];
+        count = new int[maxBins];
         range[0][0] = 100;
         for(int x=1; x < range.length; x++)
         {
@@ -123,17 +128,18 @@ public class Histogram
         System.out.println();
         for(int x = 0; x < range.length; x++)
         {
-            System.out.printf("%3d - %2d | %n",
-                    range[x][0], range[x][1]);
+            System.out.printf("%3d - %2d | %d %n",
+                    range[x][0], range[x][1], count[x]);
         }
+        //testing code
     }
 
     /**
      Reads the file and allocates marks for each bin
      */
-    public void count()
+    public void setCount()
     {
-         Scanner read = null;
+        Scanner read = null;
         try
         {
             read = new Scanner(dataFile);
@@ -144,9 +150,35 @@ public class Histogram
             System.exit(0);
         }
         
-        for(int x = 0; x <= range.length; x++)
+        for(int x = 0; x < range.length; x++)
         {
-            
+            while (read.hasNextInt())
+            {
+                if(read.nextInt() <= range[x][0] && read.nextInt() >= range[x][1])
+                    count[x] = count[x] + 1;
+                else
+                    x++;
+            }
+        }
+   }
+//testing
+    public void testsetCount()
+    {
+        Scanner read = null;
+        try
+        {
+            read = new Scanner(dataFile);
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("Error");
+            System.exit(0);
+        }
+        
+        for(int x = 0; x <= 5; x++)
+        {
+            read.next();
+            System.out.println(read.next());
         }
    }
 
@@ -163,7 +195,7 @@ public class Histogram
     {
         Scanner keyboard = new Scanner(System.in);
         Integer convert; // = Integer.parseInt(args[1]);
-        Histogram test; // = new Histogram();
+        Histogram test = new Histogram();
 
         if(args.length == 1)
         {
@@ -172,6 +204,7 @@ public class Histogram
             test = new Histogram(args[0], input);
             test.calcMax();
             test.calcMin();
+            test.setCount();
             test.toDisplay();
             test.generate();
        }
@@ -181,6 +214,7 @@ public class Histogram
             test = new Histogram(args[0], convert);
             test.calcMax();
             test.calcMin();
+            test.setCount();
             test.toDisplay();
             test.generate();
         }
@@ -189,6 +223,8 @@ public class Histogram
             System.out.println("Error");
             System.exit(0);
         }
+
+        test.testsetCount();
     }
 }
 
