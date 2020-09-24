@@ -15,15 +15,16 @@ import java.io.FileNotFoundException;
  */
 public class Histogram
 {
-    private int[][] range; 
+    private int[] range; 
     private int[] count;
     private int maxBins; //chart.length
+    private int size;
     private String path;
     private File dataFile; 
 
     public Histogram()
     {
-        range = new int[1][2];
+        range = new int[1];
         count = new int[1];
         maxBins = 1;
     }
@@ -32,7 +33,7 @@ public class Histogram
     {
         path = data;
         dataFile = new File(path);
-        range = new int[1][2];
+        range = new int[1];
         count = new int[1];
         maxBins = 1;
     }
@@ -41,20 +42,17 @@ public class Histogram
     {
         path = data;
         dataFile = new File(path);
-        range = new int[maxBins][2];
-        count = new int[maxBins];
+        range = new int[bins];
+        count = new int[bins];
+        maxBins = bins;
         if (bins == 0)
         { 
             System.out.println("Error");
             System.exit(0);
         }
-        else 
-        {
-            maxBins = bins;
-        }
     }
 
-    public Histogram(Histogram original)
+    public Histogram (Histogram original)
     {
         range = original.range;
         maxBins = original.maxBins;
@@ -75,52 +73,25 @@ public class Histogram
      */
     public void calcMax()
     {
-        int total = 100;
-        range = new int[maxBins][2];
-        count = new int[maxBins];
-        range[0][0] = 100;
-        for(int x=1; x < range.length; x++)
-        {
-            range[x][0] = total - scaleMax();
-            total = total - scaleMax(); 
-        }
-    }
-
-    /**
-     Initializes min values in the second array. 
-     */
-    public void calcMin()
-    {
-        int total = 100;
-        for(int x=0; x < range.length; x++)
-        {
-            range[x][1] = (total - scaleMax() + 1);
-            range[maxBins-1][1] = 0;
-            total = total - scaleMax();
-        }
-    }
+         for  (int x = 0; x < range.length; x++)
+            if (range[x] < 100)
+            {
+                range[x] = range[x - 1] + size;
+            }
+   }
 
     /**
      returns 100 / maxBins. Range of the bins. 
      */
-    public int scaleMax()
+    public int calcSize()
     {
+        size = (int) Math.ceil(100.0 / maxBins);
         return (int) Math.ceil(100.0 / maxBins);
-    }
-    
-    public int scaleMin()
-    {
-        return (int) Math.floor(100.0 / maxBins);
     }
 
     public Boolean getData()
     {
         return dataFile.exists();
-    }
-
-    public int getLength()
-    {
-        return range.length;
     }
 
     public void toDisplay()
@@ -129,7 +100,7 @@ public class Histogram
         for(int x = 0; x < range.length; x++)
         {
             System.out.printf("%3d - %2d | %d %n",
-                    range[x][0], range[x][1], count[x]);
+                    range[range.length - 1 -x], range[range.length - 1 - x] - size + 1, count[x]);
         }
         //testing code
     }
@@ -154,35 +125,15 @@ public class Histogram
         {
             while (read.hasNextInt())
             {
-                if(read.nextInt() <= range[x][0] && read.nextInt() >= range[x][1])
+                if(read.nextInt() <= range[x] && read.nextInt() >= range[x])
                     count[x] = count[x] + 1;
                 else
                     x++;
             }
-        }
-   }
-//testing
-    public void testsetCount()
-    {
-        Scanner read = null;
-        try
-        {
-            read = new Scanner(dataFile);
-        }
-        catch (FileNotFoundException e)
-        {
-            System.out.println("Error");
-            System.exit(0);
-        }
-        
-        for(int x = 0; x <= 5; x++)
-        {
-            read.next();
-            System.out.println(read.next());
-        }
-   }
+        } 
+    }
 
-    /**
+   /**
      Generates []
      */
     public String generate()
@@ -202,29 +153,25 @@ public class Histogram
             System.out.println("How many bins would you like?");
             int input = keyboard.nextInt();
             test = new Histogram(args[0], input);
+            test.calcSize();
             test.calcMax();
-            test.calcMin();
             test.setCount();
             test.toDisplay();
-            test.generate();
-       }
+        }
         else if(args[1] != null)
         {
             convert = Integer.parseInt(args[1]);
             test = new Histogram(args[0], convert);
+            test.calcSize();
             test.calcMax();
-            test.calcMin();
             test.setCount();
             test.toDisplay();
-            test.generate();
         }
         else
         {
             System.out.println("Error");
             System.exit(0);
         }
-
-        test.testsetCount();
     }
 }
 
