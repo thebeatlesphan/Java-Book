@@ -73,20 +73,20 @@ public class Histogram
      */
     public void calcMax()
     {
-         for  (int x = 0; x < range.length; x++)
+         for  (int x = 1; x < range.length; x++)
             if (range[x] < 100)
             {
                 range[x] = range[x - 1] + size;
             }
-   }
+    }
 
     /**
      returns 100 / maxBins. Range of the bins. 
      */
     public int calcSize()
     {
-        size = (int) Math.ceil(100.0 / maxBins);
-        return (int) Math.ceil(100.0 / maxBins);
+        size = (int) Math.floor(100.0 / maxBins);
+        return (int) Math.floor(100.0 / maxBins);
     }
 
     public Boolean getData()
@@ -99,10 +99,22 @@ public class Histogram
         System.out.println();
         for(int x = 0; x < range.length; x++)
         {
-            System.out.printf("%3d - %2d | %d %n",
-                    range[range.length - 1 -x], range[range.length - 1 - x] - size + 1, count[x]);
+            if (range.length - 1 - x  == 0)
+                System.out.printf("%3d - %2d | %d %n",
+                        range[range.length - 1 - x] + size,
+                        range[range.length - 1 - x], count[x]);
+            else if (x == range.length - 1)
+            {
+                System.out.println("HELLO");
+                System.out.printf("%3d - %2d | %d %n",
+            range[range.length - 1 - x] + (100 - range[range.length - 1 - x]),
+                        range[range.length - 1 - x], count[x]);
+            }
+            else
+                System.out.printf("%3d - %2d | %d %n",
+                        range[range.length - 1 - x] + size,
+                        range[range.length - 1 - x] + 1, count[x]);
         }
-        //testing code
     }
 
     /**
@@ -141,6 +153,12 @@ public class Histogram
        return ("[]");
     }
 
+    public void getRange()
+    {
+        System.out.println("size: " + size);
+        for (int x = 0; x < range.length; x++)
+            System.out.println("range[" + x + "]: " + range[x]);
+    }
 
     public static void main(String[] args)
     {
@@ -157,6 +175,8 @@ public class Histogram
             test.calcMax();
             test.setCount();
             test.toDisplay();
+
+            test.getRange();
         }
         else if(args[1] != null)
         {
@@ -166,6 +186,8 @@ public class Histogram
             test.calcMax();
             test.setCount();
             test.toDisplay();
+
+            test.getRange();
         }
         else
         {
