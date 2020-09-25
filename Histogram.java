@@ -73,10 +73,10 @@ public class Histogram
      */
     public void calcMax()
     {
-         for  (int x = 1; x < range.length; x++)
+         for  (int x = 0; x < range.length; x++)
             if (range[x] < 100)
             {
-                range[x] = range[x - 1] + size;
+                range[x] = 100 - (size * x);
             }
     }
 
@@ -85,8 +85,8 @@ public class Histogram
      */
     public int calcSize()
     {
-        size = (int) Math.floor(100.0 / maxBins);
-        return (int) Math.floor(100.0 / maxBins);
+        size = (int) Math.ceil(100.0 / maxBins);
+        return (int) Math.ceil(100.0 / maxBins);
     }
 
     public Boolean getData()
@@ -99,21 +99,12 @@ public class Histogram
         System.out.println();
         for(int x = 0; x < range.length; x++)
         {
-            if (range.length - 1 - x  == 0)
+            if (x == range.length - 1)
                 System.out.printf("%3d - %2d | %d %n",
-                        range[range.length - 1 - x] + size,
-                        range[range.length - 1 - x], count[x]);
-            else if (x == range.length - 1)
-            {
-                System.out.println("HELLO");
-                System.out.printf("%3d - %2d | %d %n",
-            range[range.length - 1 - x] + (100 - range[range.length - 1 - x]),
-                        range[range.length - 1 - x], count[x]);
-            }
+                        range[x], range[x] - range[x], count[x]);
             else
                 System.out.printf("%3d - %2d | %d %n",
-                        range[range.length - 1 - x] + size,
-                        range[range.length - 1 - x] + 1, count[x]);
+                        range[x], range[x] - size + 1, count[x]);
         }
     }
 
@@ -132,17 +123,16 @@ public class Histogram
             System.out.println("Error");
             System.exit(0);
         }
-        
-        for(int x = 0; x < range.length; x++)
+
+        while (read.hasNext())
         {
-            while (read.hasNextInt())
-            {
-                if(read.nextInt() <= range[x] && read.nextInt() >= range[x])
-                    count[x] = count[x] + 1;
-                else
-                    x++;
-            }
-        } 
+            for (int x = 0; x < range.length - 1; x++)
+                if (
+            if (read.hasNextInt())
+            else
+                read.next();
+        }
+
     }
 
    /**
