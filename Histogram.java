@@ -97,14 +97,20 @@ public class Histogram
     public void toDisplay()
     {
         System.out.println();
-        for(int x = 0; x < range.length; x++)
+        for (int x = 0; x < range.length; x++)
         {
             if (x == range.length - 1)
-                System.out.printf("%3d - %2d | %d %n",
-                        range[x], range[x] - range[x], count[x]);
+            {
+                System.out.printf("%3d - %2d | ", range[x], range[x] - range[x]);
+                generate(count[x]);
+                System.out.println();
+            }
             else
-                System.out.printf("%3d - %2d | %d %n",
-                        range[x], range[x] - size + 1, count[x]);
+            {
+                System.out.printf("%3d - %2d | ", range[x], range[x] - size + 1);
+                generate(count[x]);
+                System.out.println();
+            }
         }
     }
 
@@ -124,23 +130,29 @@ public class Histogram
             System.exit(0);
         }
 
+        int input;
         while (read.hasNext())
         {
-            for (int x = 0; x < range.length - 1; x++)
-                if (
             if (read.hasNextInt())
+            {
+                input = read.nextInt();
+                for (int x = 0; x < range.length - 1; x++) {
+                    if (input < range[x] && input > range[x + 1])
+                        count[x]++;
+                }
+            }
             else
                 read.next();
         }
-
     }
 
    /**
      Generates []
      */
-    public String generate()
+    public void generate(int count)
     {
-       return ("[]");
+        for (int x = 0; x <= count; x++)
+            System.out.print("[]");
     }
 
     public void getRange()
