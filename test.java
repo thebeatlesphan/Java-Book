@@ -2,31 +2,25 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class Test
+public class test
 {
+    public void probability()
+    {
+        int sum;
+
+    }
+
     public static void main(String[] args)
     {
-        Scanner keyboard = new Scanner(System.in);
-        Scanner read = null;
-        File dataFile = new File("grades.csv");
-        try
+        int[][] array = {{1,2,3,4,5},{1,2,3,4,5}};
+        
+        for (int[] x : array)
         {
-            read = new Scanner(dataFile);
-        }
-        catch (FileNotFoundException e)
-        {
-            System.out.println("ERROR");
-            System.exit(0);
-        }
-
-        while (read.hasNext())
-        {
-            if (read.hasNextInt())
-                System.out.println(read.nextInt());
-            else 
+            for (int y : x)
             {
-                read.next();
+                System.out.print(y + " ");
             }
+            System.out.println();
         }
     }
 }
