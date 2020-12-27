@@ -16,12 +16,15 @@ alphabet.
 
     private double[][] counts; 
     private double[] sum;
+    private double[] sum1 = new double[26];
     private String source;
 
-    public SourceModel(String source, String fileName)
+    public SourceModel(String sourceInput, String fileName)
     {
         counts = new double[26][26];
         sum = new double[26];
+        source = sourceInput;
+
         System.out.println("Training " + source + " model ...");
         
         //Read file by char
@@ -73,26 +76,81 @@ alphabet.
         }
     }
 
+    //Divides the each index of the array by the sum of the row
     public void probability()
     {
-        for (double[] i : counts)
+        //calculates sum[]
+        for (int i = 0; i < counts.length; i++)
         {
-            for (double j : i)
+            for (int j = 0; j < counts[i].length; j++) 
             {
+                sum[i] = sum[i] + counts[i][j];
+            }
+        }
+       
+        //divides each index of counts[][] by the corresponding sum[]
+        for (int i = 0; i < counts.length; i++)
+        {
+            for (int j = 0; j < counts[i].length; j++)
+            {
+                counts[i][j] /= sum[i];
+                counts[i][j] = Math.round(counts[i][j] * 100.0) / 100.0;
+                if (counts[i][j] == 0.0)
+                    counts[i][j] = 0.01;
+            }
+        }
+    }
+
+    //calculates the sum of the row
+    public void sum()
+    {
+        for (int i = 0; i < counts.length; i++)
+        {
+            for (int j = 0; j < counts[i].length; j++)
+            {
+                sum1[i] += counts[i][j];
             }
         }
     }
 
     public void display()
     {
+        //prints counts[][]
         for (double[] i : counts)
         {
             for (double j : i)
             {
+//                System.out.printf("%1.2f ", j);
                 System.out.print(j + " ");
             }
             System.out.println();
         }
+
+        //prints sums[]
+        System.out.println("There are " + sum.length + " sum rows");
+        for (int i = 0; i < sum.length; i++)
+        {
+            System.out.println("sum of row " + i + " is " + (int)sum[i]);
+        }
+
+        //prints sum1[]
+        System.out.println("sum1--------------");
+        for (int i=0; i < sum1.length; i++)
+        {
+            System.out.println(sum1[i]);
+        }
+    }
+
+    public String getName()
+    {
+        return source;
+    }
+
+    public void toDisplay()
+    {
+        System.out.println("Training " + source + " model ... done.");
+        System.out.println(source + " ==> Model: " + source);
+
     }
 
     public static void main(String[] args)
@@ -100,6 +158,9 @@ alphabet.
         SourceModel hello = new SourceModel("english", "english.corpus");
         
         System.out.println();
+        hello.probability();
+        hello.sum();
         hello.display();
+        
     }
 }
