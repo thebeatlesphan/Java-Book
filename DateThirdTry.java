@@ -59,7 +59,7 @@ public class DateThirdTry
 	public boolean precedes(DateThirdTry otherDate)
 	{
 		return ( (year < otherDate.year) || 
-		(year == otherDate.year && getMonth() < otherDate.getMonth()) || 
+		(year == otherDate.year && getMonth() == otherDate.getMonth()) ||
 		(year == otherDate.year && month.equals(otherDate.month) && day < otherDate.day));
 	}
 	

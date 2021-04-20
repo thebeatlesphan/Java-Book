@@ -1,4 +1,4 @@
-public class TestOneTwo
+public class SugarDeath
 {
     /*public static final KILL_MOUSE;
     public static final WEIGHT_MOUSE;

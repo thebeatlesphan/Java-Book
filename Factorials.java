@@ -2,11 +2,11 @@ import java.util.Scanner;
 
 public class Factorials
 {
-	public static void main(String[] args);
+	public static void main(String[] args)
 	{
 		Scanner keyboard = new Scanner(System.in);
 		
-		int number;
+		int number = 1;
 		
 		for (int n, x = 0; number > 0; number--)
 		{

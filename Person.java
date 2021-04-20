@@ -6,8 +6,8 @@
 public class Person
 {
 	private String name;
-	private Date born;
-	private Date died; //null indicates still alive.
+	private DateFinal born;
+	private DateFinal died; //null indicates still alive.
 	
     /**
      Constructor (String, Date, Date);
@@ -16,16 +16,16 @@ public class Person
      @author Andy
      @version 1.1.1.1
     */
-	public Person(String initialName, Date birthDate, Date deathDate)
+	public Person(String initialName, DateFinal birthDate, DateFinal deathDate)
 	{
 		if (consistent(birthDate, deathDate))
 		{
 			name = initialName;
-			born = new Date(birthDate);  //Copy Constructors
+			born = new DateFinal(birthDate);  //Copy Constructors
 			if (deathDate == null)
-				died = nuill;
+				died = null;
 			else
-				died = new Date(deathDate);
+				died = new DateFinal(deathDate);
 		}
 		else
 		{
@@ -43,12 +43,12 @@ public class Person
 		}
 		
 		name = original.name;
-		born = new Date(original.born);
+		born = new DateFinal(original.born);
 		
 		if (original.died == null)
 			died = null;
 		else
-			died = new Date(original.died);
+			died = new DateFinal(original.died);
 	}
 	
 	//public void set(String newName, Date birthDate, Date deathDate)
@@ -78,7 +78,7 @@ public class Person
 	/* 
 	To match, date1 and date2 must either be the same date or must both be null.
 	*/
-	private static boolean datesMatch(Date date1, Date date2)
+	private static boolean datesMatch(DateFinal date1, DateFinal date2)
 	{
 		if (date1 == null)
 			return (date2 == null);
@@ -92,10 +92,10 @@ public class Person
 	Precondition: newDate is a consistent date of birth.
 	Postcondition: Date of birth of the calling object is newDate.
 	*/
-	public void setBirthDate(Date newDate)
+	public void setBirthDate(DateFinal newDate)
 	{
 		if (consistent(newDate, died))
-			born = new Date(newDate);
+			born = new DateFinal(newDate);
 		else
 		{
 			System.out.println("Inconsistent dates. Abortin.");
@@ -107,7 +107,7 @@ public class Person
 	Precondition: newDate is a consistent date of death.
 	Postcondition: Date of death of the calling object is newDate.
 	*/
-	public void setDeathDate(Date newDate)
+	public void setDeathDate(DateFinal newDate)
 	{
 		if (!consistent(born, newDate))
 		{
@@ -117,7 +117,7 @@ public class Person
 		if (newDate == null)  //no corresponding code in setBirthDate
 			died = null;
 		else
-			died = new Date(newDate);
+			died = new DateFinal(newDate);
 	}
 	
 	public void setName(String newName)
@@ -170,17 +170,17 @@ public class Person
 		return name;
 	}
 	
-	public Date getBirthDate()
+	public DateFinal getBirthDate()
 	{
-		return new Date(born);
+		return new DateFinal(born);
 	}
 	
-	public Date getDeathDate();
+	public DateFinal getDeathDate()
 	{
 		if (died == null)
 			return null;
 		else
-			return new Date(died);
+			return new DateFinal(died);
 	}
 	
 	/*
@@ -188,7 +188,7 @@ public class Person
 	death (deathDate == null), that is consistent with any birthDate.
 	Otherwise, the birthDate must come before or be equal to the deathDate.
 	*/
-	private static boolean consistent(Date birthDate, Date deathDate)
+	private static boolean consistent(DateFinal birthDate, DateFinal deathDate)
 	{
 		if (birthDate == null)
 			return false;
