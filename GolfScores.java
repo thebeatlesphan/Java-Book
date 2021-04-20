@@ -15,7 +15,7 @@ public class GolfScores
         System.out.println("This program reads golf scores and shows");
         System.out.println("how much each differs from the average.");
         System.out.println("Enter golf scores:");
-        numberUsed - fillArray(score);
+        numberUsed = fillArray(score);
         showDifference(score, numberUsed);
     }
 
@@ -96,7 +96,7 @@ public class GolfScores
     {
         double[] temp = new double[numberUsed];
         for (int i = 0; i < argumentArray.length; i++)
-            temp[i] = argumentArray[i] - adjument;
+            temp[i] = argumentArray[i] - adjustment;
         return temp;
     }
 }

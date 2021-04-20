@@ -1,23 +1,27 @@
-public class Test
+public class test
 {
     public static void main(String[] args)
     {
-        Money andy = new Money(4, 20);
-        System.out.println(andy);
-        System.out.println("-------------------");
+        Movie movie = new Movie("G", "G Movie", 1);
+        System.out.println(movie.calcLateFees(3));
 
-        System.out.println(andy.getCents());
+        Action action = new Action("X", "X Movie", 2);
+        System.out.println(action.calcLateFees(3));
 
-        System.out.println(andy.equals(new Money(4,21)));
+        Comedy comedy = new Comedy("C", "C Movie", 3);
+        System.out.println(comedy.calcLateFees(3));
 
-        Money dingo = new Money(2,10);
+        Drama drama = new Drama("D", "D Movie", 4);
+        System.out.println(drama.calcLateFees(3));
 
-        System.out.println(Money.add(andy, dingo));
-        System.out.println("-------------------");
+        Rental testRental = new Rental("R", "R movie", 5, 15, 5);
+        System.out.println(testRental.rentalFees());
 
-       // System.out.println(andy.add(new Money(50,50)));
+        Rental[] rentalArray = new Rental[3];
+        rentalArray[0] = new Rental("PG-13", "Nemo", 1, 300, 200);
+        rentalArray[1] = new Rental("MA", "Shrek", 2, 300, 200);
+        //rentalArray[2] = new Rental(drama);
 
-        andy.add(new Money(60, 60));
-        System.out.println(andy);
+        //System.out.println(testRental.calcRentalFees(rentalArray));
     }
 }

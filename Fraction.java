@@ -31,8 +31,8 @@ public class Fraction
 	
 	public void reduceFraction(int n, int d)  //find the largest number with no remainder
 	{
-		for(n = n; n > 0; n--)
-		{ 
-			
+		for(n = n; n > 0; n--) {
+
+		}
 	}
 }

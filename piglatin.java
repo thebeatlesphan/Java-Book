@@ -1,4 +1,4 @@
-public class PigLatin
+public class piglatin
 {
 	public static void main(String[] args)
 	{
