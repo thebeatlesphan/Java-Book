@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class GiveChange
+public class Change
 {
 	public static void main(String[] args)
 	{

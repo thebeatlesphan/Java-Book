@@ -16,6 +16,7 @@ class Alien
     }
 }
 
+/*
 public class AlienPack
 {
     private Alien[] aliens;
@@ -56,3 +57,4 @@ public class AlienPack
         return damage;
     }
 }
+*/

@@ -67,6 +67,7 @@ public class BeerSong
 		}
 	}
 	
+	/*
 	public String numberToWords(int i)
 	{
 		if (i <= 9)
@@ -76,7 +77,7 @@ public class BeerSong
 		else
 			return 
 	}
-	
+	*/
 	
 	
 	public void printSong()

@@ -25,7 +25,7 @@ public class DateFourthTry
 	public boolean precedes(DateFourthTry otherDate)
 	{
 		return ( (year < otherDate.year) ||
-			(year == otherDate.year && getMonth() < otherDate.getMonth()) ||
+			(year == otherDate.year && getMonth() == otherDate.getMonth()) ||
 			(year == otherDate.year && month.equals(otherDate.month) &&
 				day < otherDate.day) );
 	}

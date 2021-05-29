@@ -46,10 +46,11 @@ public class FractionCh5
         return copy.numerator;
     }
 
-    public FractionCh5 reduced()
+    /*public FractionCh5 reduced()
     {
         return new FractionCh5(numerator / gcd, denominator / gcd);
     }
+     */
 
     public boolean equals(FractionCh5 otherFraction)
     {
@@ -64,12 +65,12 @@ public class FractionCh5
         System.out.println(object1.gcd());
         object1.toDisplay();
 
-        object1.reduced().toDisplay();
+        //object1.reduced().toDisplay();
         object1.toDisplay();
         
         FractionCh5 object2 = new FractionCh5(30, 151);
 
-        System.out.println(object1.reduced().equals(object2.reduced()));
+        //System.out.println(object1.reduced().equals(object2.reduced()));
     }
 }
 

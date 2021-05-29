@@ -9,6 +9,7 @@ public class DateThirdTryDemo
 		System.out.println(year);
 		
 		date.setDate(1, 2, 3001);
+		/*
 			if (date.isBetween(2000, 4000))
 			{
 				System.out.println("true");
@@ -16,6 +17,7 @@ public class DateThirdTryDemo
 			}
 			else
 				System.out.println("false");
+		 */
 		System.out.println(year);
 	}
 }
