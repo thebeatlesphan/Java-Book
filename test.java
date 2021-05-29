@@ -1,27 +1,46 @@
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
 public class test
 {
+    public static int getInt(Scanner keyboard) {
+        boolean hello = false;
+        int number = 0;
+
+        while (!hello)
+        {
+            try
+            {
+                System.out.println("enter number");
+                number = keyboard.nextInt();
+                hello = true;
+            }
+            catch (InputMismatchException e)
+            {
+                keyboard.nextLine();
+                System.out.println("you dummy");
+            }
+        }
+        return number;
+    }
+
     public static void main(String[] args)
     {
-        Movie movie = new Movie("G", "G Movie", 1);
-        System.out.println(movie.calcLateFees(3));
-
-        Action action = new Action("X", "X Movie", 2);
-        System.out.println(action.calcLateFees(3));
-
-        Comedy comedy = new Comedy("C", "C Movie", 3);
-        System.out.println(comedy.calcLateFees(3));
-
-        Drama drama = new Drama("D", "D Movie", 4);
-        System.out.println(drama.calcLateFees(3));
-
-        Rental testRental = new Rental("R", "R movie", 5, 15, 5);
-        System.out.println(testRental.rentalFees());
-
-        Rental[] rentalArray = new Rental[3];
-        rentalArray[0] = new Rental("PG-13", "Nemo", 1, 300, 200);
-        rentalArray[1] = new Rental("MA", "Shrek", 2, 300, 200);
-        rentalArray[2] = new Rental(drama); 
-
-        System.out.println(testRental.calcRentalFees(rentalArray));
+        Scanner keyboard = new Scanner(System.in);
+        int number = 0;
+        boolean done = false;
+        
+        while (!done){
+            try 
+            {
+                System.out.println("Enter a whole number");
+                number = keyboard.nextInt();
+                done = true;
+            } catch (InputMismatchException e) {
+                keyboard.nextLine();
+                System.out.println("Not a correctly written whole number.");
+                System.out.println("try again");
+            }
+        }
     }
 }
